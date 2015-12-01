@@ -31,8 +31,38 @@ abstract class MyDslGenerator implements IGenerator {
       e.name + ".xml",
       e.compileAgent)
   		}
-	}
 	
+	//generating the Agent class file
+	  fsa.generateFile(
+      'Agent' + ".java",
+      agentClass)
+      
+	//generating the Belief class
+	fsa.generateFile(
+      'Belief' + ".java",
+      beliefClass)
+	
+	//generating the Plan class
+	fsa.generateFile(
+      'Plan' + ".java",
+      planClass)
+      
+	//generating the Event class
+	fsa.generateFile(
+      'Event' + ".java",
+      eventClass)
+ 
+    //generating the Goal class
+	fsa.generateFile(
+      'Goal' + ".java",
+      goalClass)
+      
+    //generating the Event class
+	fsa.generateFile(
+      'Event' + ".java",
+      eventClass)
+      
+	} 
 	def compileAgent(Agent e) '''
 <Agent>
       «FOR b: e.belief»
@@ -58,6 +88,704 @@ abstract class MyDslGenerator implements IGenerator {
 
 </Agent>
 '''
+def agentClass()'''
+package bDIModel;
+
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.io.IOException;
+
+//import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+
+/**
+ * The Agent class objects have a ArrayList of 
+ * Belief, Plan, Goal, Event and Import of the Agent.
+ * The set and get methods are used to set and get 
+ * the elements of each ArrayList.
+ * 
+ * @author NandaKumar Derek Moayad
+ *
+ */
+public class Agent {
+	private ArrayList<Belief> Beliefs;
+	private ArrayList<Plan> Plans;
+	private ArrayList<Goal> Goals;
+	private ArrayList<Event> Events;
+	private ArrayList<Import> Imports;
+	
+	private String agentName;
+	//private String imports;
+	
+	/**
+	 * The Agent constructor takes a Filename as input and
+	 * parses through the file and instantiates the Beliefs,
+	 * Plans, Goals, Events and Imports for the Agent.
+	 * @param filename
+	 * @see Belief 
+	 * @see Plan 
+	 * @see Goal 
+	 * @see Event
+	 */
+	public Agent(String filename) throws ParserConfigurationException {
+		ReadXMLFile(filename);
+	}
+	
+	private void ReadXMLFile(String filename) throws ParserConfigurationException{
+		File fxmlFile = new File(filename);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = null;
+		try{
+			doc = dBuilder.parse(fxmlFile);
+		} catch (SAXException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		doc.getDocumentElement().normalize();
+		//------------------Initialize Objects--------------------//
+		NodeList nList = doc.getElementsByTagName("Agent");
+		for(int i = 0; i < nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			if(nNode.getNodeType() == Node.ELEMENT_NODE){
+				Element eElement = (Element) nNode;
+				//Create Belief Object with the string parameter
+				if(eElement.getNodeName() == "belief"){
+					String[][] attributes = generateAttributeArray(eElement); 
+					Belief newBelief = new Belief(attributes);
+					this.Beliefs.add(newBelief);
+				}
+				if(eElement.getNodeName() == "plan"){
+					String[][] attributes = generateAttributeArray(eElement);
+					Plan newPlan = new Plan(attributes);
+					this.Plans.add(newPlan);
+				}
+				if(eElement.getNodeName() == "goal"){
+					String[][] attributes = generateAttributeArray(eElement);
+					Goal newGoal = new Goal(attributes);
+					this.Goals.add(newGoal);
+				}
+				if(eElement.getNodeName() == "event"){
+					String[][] attributes = generateAttributeArray(eElement);
+					Event newEvent = new Event(attributes);
+					this.Events.add(newEvent);
+				}
+			}
+		}
+	}
+
+	public static String[][] generateAttributeArray(Element element){
+		String[][] attributes = null;
+		NamedNodeMap attrib = element.getAttributes();
+		int numAttr = attrib.getLength();
+		for(int i = 0; i < numAttr; i++){
+			Attr attr = (Attr) attrib.item(i);
+			String attrName = attr.getNodeName();
+			String attrValue = attr.getNodeValue();
+			attributes[i][0] = attrName;
+			attributes[i][1] = attrValue;
+		}
+		return attributes;
+	}
+
+	/**
+	 * The getBeliefs method returns the Beliefs of the Agent.
+	 * @return ArrayList of Belief
+	 */
+	public ArrayList<Belief> getBeliefs() {
+		return this.Beliefs;
+	}
+	
+	/**
+	 * The getPlans method returns the Plans of the Agent.
+	 * @return ArrayList of Plan
+	 */
+	public ArrayList<Plan> getPlans(){
+		return this.Plans;
+	}
+	
+	/**
+	 * The getGoals method returns the Goals of the Agent.
+	 * @return ArrayList of Goal
+	 */
+	public ArrayList<Goal> getGoals(){
+		return this.Goals;
+	}
+	
+	/**
+	 * The getEvents method returns the Events of the Agent.
+	 * @return ArrayList of Event
+	 */
+	public ArrayList<Event> getEvents(){
+		return this.Events;
+	}
+	
+	
+/*	private void importFiles(String imports) {
+		//import files
+	}
+*/
+	/**
+	 * The getAgentName method returns the name of the Agent.
+	 * @return Name of the Agent
+	 */
+	public String getAgentName() {
+		return agentName;
+	}
+
+	/**
+	 * The setAgentName method sets the name of the Agent.
+	 * @param agentName
+	 */
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+	
+	public Goal getGoalObject(String name) {
+		for (Goal goal : Goals) {
+			if (goal.getName()==name) {
+				return goal;
+			}
+		}
+		return null;
+	}
+	
+	public Plan getPlanObject(String name) {
+		for (Plan plan : Plans) {
+			if (plan.getname()==name) {
+				return plan;
+			}
+		}
+		return null;
+	}
+	
+	public Event getEventObject(String name) {
+		for (Event event : Events) {
+			if (event.getname()==name) {
+				return event;
+			}
+		}
+		return null;
+	}
+	
+}
+'''
+
+
+def beliefClass()'''
+package bDIModel;
+
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+//import java.time.format.DateTimeFormatter;
+
+
+/**
+ * The Belief class instantiates each Belief 
+ * with initDate, validatedDate and Goal associated 
+ * with the Belief. The beliefValidate is the Event
+ * that validates the Belief.
+ * 
+ * @author NandaKumar Derek Moayad
+ *
+ */
+public class Belief {
+	String name,fact;
+	Date initDate,validatedDate;
+	String beliefGoal;
+	String beliefValidate;
+	
+	/**
+	 * The Belief constructor instantiates a Belief object
+	 * with initDate, validatedDate and Goal associated 
+	 * with the Belief.
+	 * @param belief
+	 */
+	public Belief(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "beliefgoal"){
+				this.beliefGoal = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "beliefvalidate"){
+				this.beliefValidate = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "fact"){
+				this.fact = attributes[i][1];
+			}
+			this.initDate = new Date();
+			this.validatedDate = this.initDate;
+		}
+	}
+
+	/**
+	 * The getBeliefValidate returns the beliefValidate
+	 * Event associated with this Belief.
+	 * @return The Event that validates this Belief
+	 */
+	public String getBeliefValidate() {
+		return this.beliefValidate;
+	}
+
+	/**
+	 * The setBeliefValidate method takes an Event and
+	 * sets that Event as beliefValidate Event
+	 * of the Belief.
+	 * @param event
+	 */
+	public void setBeliefValidate(String event) {
+		this.beliefValidate=event;
+	}
+	/**
+	 * The getname method returns the name of the Belief.
+	 * @return Name of the Belief
+	 */
+	public String getname() {
+		return this.name;
+	}
+	
+	/**
+	 * The getfact returns the fact associated with 
+	 * the Belief.
+	 * @return fact of the Belief
+	 */
+	public String getfact() {
+		return this.fact;
+	}
+	
+	/**
+	 * The setfact method takes a value and sets that as
+	 * the fact of this Belief.
+	 * @param value
+	 */
+	public void setfact(String value) {
+		this.fact=value;
+	}
+
+	/**
+	 * The getGoal method returns the Goal associated with
+	 * the Belief.
+	 * @return Goal associated with the Belief
+	 */
+	public String getGoal() {
+		return this.beliefGoal;
+	}
+	
+	/**
+	 * The setGoal method sets the Goal of the Belief.
+	 * @param goal
+	 */
+	public void setGoal(String goal) {
+		this.beliefGoal=goal;
+	}
+	
+	
+	/**
+	 * The delete method deletes the fact of the Belief.
+	 */
+	public void delete() {
+		this.fact=null;
+	}
+	
+	/**
+	 * The getVaidatedDate method returns the validatedDate 
+	 * of the Belief.
+	 * @return validatedDate of the Belief
+	 */
+	public Date getVaidatedDate() {
+		return this.validatedDate;
+	}
+	
+	/**
+	 * The updateValidatedDate method takes the new validatedDate
+	 * and sets that to the validatedDate.
+	 * @param date
+	 */
+	public void updateValidatedDate(Date date) {
+		this.validatedDate=date;
+	}
+	
+	/**
+	 * The getDate method returns the current Date and Time
+	 * of the System.
+	 * @return Date and Time
+	 */
+	public Date getDate() {
+		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	    Date dateobj = new Date();
+	    String date= df.format(dateobj);
+	    return dateobj;
+	}
+	
+	/**
+	 * The validateBelief method validates the belief
+	 * by checking the fact and returns whether the 
+	 * Belief validity as true or false.
+	 * @return validity of Belief as true or false
+	 */
+	public boolean validateBelief() {
+		String fact=this.getfact();
+		Date date=this.getDate();
+		if(valid(fact)) {
+			this.updateValidatedDate(date);
+			return true;
+		} else {
+			this.deleteBelief();
+			return false;
+		}
+	}
+	
+	/**
+	 * The valid method takes a fact and executes
+	 * the beliefValidate event associated with the 
+	 * Belief and returns validity as true or false.
+	 * @param fact
+	 * @return validity as true or false
+	 */
+	private boolean valid(String fact) {
+		if(this.beliefValidate.execute()) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * The updateBelief method updates the 
+	 * Belief with the new fact.
+	 * @param value
+	 */
+	public void updateBelief(String value) {
+		this.setfact(value);
+	}
+	
+	/**
+	 * The deleteBelief method deletes the Belief.
+	 */
+	public void deleteBelief() {
+		this.delete();
+	}
+	
+	/**
+	 * The isValid method checks the validity of the
+	 * Belief based on the difference between the 
+	 * validatedDate and the current date.
+	 * @return validity as true or false
+	 */
+	public boolean isValid() {
+		
+		Date dateString=this.validatedDate;
+		Date day=this.getDate();
+		Date date=null,today=null;
+		//Date formattedDate=null;
+		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+		//DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yy HH:mm:ss");
+		try {
+			date = dateString;
+			//formattedDate = df.format(date);
+			today=day;
+			long diff = today.getTime() - date.getTime();
+			long diffHours = diff / (60 * 60 * 1000);
+			if (diffHours > 24) {
+				return false;
+			} else {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			//e.printStackTrace();
+			return false;
+		}
+		
+	}
+}
+'''
+
+
+
+def planClass()'''
+package bDIModel;
+
+/**
+ * The Plan class instantiates a Plan with
+ * name, code, PriorityValue and the planEvent
+ * associated with the Plan.
+ * 
+ * @author NandaKumar Derek Moayad
+ *
+ */
+public class Plan {
+	int PriorityValue;
+	String name, code;
+	String planEvent;
+	
+	/**
+	 * The Plan constructor initializes the Plan
+	 * with the name, code, PriorityValue and the planEvent
+	 * associated with the Plan.
+	 * @param plan
+	 */
+	public Plan(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "code"){
+				this.code = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "priorityvalue"){
+				this.PriorityValue = Integer.valueOf(attributes[i][1]);
+			}
+			else if(attributes[i][0].toLowerCase() == "planevent"){
+				this.planEvent = attributes[i][1];
+			}
+		}
+	}
+
+	/**
+	 * The getevent method returns the Event associated
+	 * with this Plan.
+	 * @return Event of the Plan
+	 */
+	public String getevent() {
+		return this.planEvent;
+	}
+
+	/**
+	 * The getPriorityValue method returns the PriorityValue
+	 * of the Plan.
+	 * @return PriorityValue of the Plan
+	 */
+	public int getPriorityValue() {
+		return this.PriorityValue;
+	}
+	
+	/**
+	 * The getname method returns the name of the Plan.
+	 * @return name of the Plan
+	 */
+	public String getname() {
+		return this.name;
+	}
+	
+	/**
+	 * The getcode method returns the code of the Plan.
+	 * @return code of the Plan
+	 */
+	public String getcode() {
+		return this.code;
+	}
 
 }
+'''
+
+
+
+def eventClass()'''
+package bDIModel;
+
+/**
+ * The Event class instantiates an Event
+ * with name and code.
+ * 
+ * @author NandaKumar Derek Moayad
+ *
+ */
+public class Event {
+	String name,code;
+	
+	/**
+	 * The Event constructor initializes the
+	 * Event name and code.
+	 * @param event
+	 */
+	public Event(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "code"){
+				this.code = attributes[i][1];
+			}
+		}
+	}
+	/**
+	 * The execute method executes the code
+	 * associated with the Event. It returns the 
+	 * Event result. 
+	 * @return result as true or false
+	 */
+	public boolean execute() {
+		//handle code execution here
+		return false;
+	}
+	/**
+	 * The getname method returns the name of the Event.
+	 * @return Name of the Event
+	 */
+	public String getname() {
+		return this.name;
+	}
+	
+	/**
+	 * The getcode returns the code associated with 
+	 * the Event.
+	 * @return code of the Event
+	 */
+	public String getcode() {
+		return this.code;
+	}
 }
+'''
+
+def goalClass()'''
+package bDIModel;
+
+/**
+ * The Goal class instantiates Goal with 
+ * name, condition, goalType and the Goalplan 
+ * associated with it.
+ * 
+ * @author NandaKumar Derek Moayad
+ *
+ */
+public class Goal {
+	
+	private String goalType, name, condition;
+	String Goalplan;
+	
+	/**
+	 * The Goal constructor initializes the Goal
+	 * with name, condition, goalType and the Goalplan 
+	 * associated with it.
+	 * @param goal
+	 */
+	public Goal(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "goaltype"){
+				this.goalType = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "condition"){
+				this.condition = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "goalplan"){
+				this.Goalplan = attributes[i][1];
+			}
+		}
+	}
+	
+	/**
+	 * The getGoalType method return the goalType of
+	 * the Goal.
+	 * @return goalType of the Goal
+	 */
+	public String getGoalType() {
+		return goalType;
+	}
+	/**
+	 * The setGoalType method sets the goalType of
+	 * the Goal.
+	 * @param goalType
+	 */
+	public void setGoalType(String goalType) {
+		this.goalType = goalType;
+	}
+	/**
+	 * The getName method returns the name of the Goal.
+	 * @return Name of the Goal
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * The setName method sets the name of the Goal.
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	/**
+	 * The getCondition method returns the condition of
+	 * the Goal.
+	 * @return condition of the Goal
+	 */
+	public String getCondition() {
+		return condition;
+	}
+	/**
+	 * The setCondition method sets the condition of
+	 * the Goal.
+	 * @param condition
+	 */
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+	/**
+	 * The getPlan method returns the Goalplan
+	 * associated with the Goal.
+	 * @return Goalplan of the Goal
+	 */
+	public String getPlan() {
+		return this.Goalplan;
+	}
+	/**
+	 * The setPlan method sets the Goalplan of the Goal.
+	 * @param plan
+	 */
+	public void setPlan(String plan) {
+		this.Goalplan=plan;
+	}
+	/**
+	 * The checkcondition method validates the Goal condition.
+	 * @return validity as true or false
+	 */
+	public boolean checkcondition() {
+		String condition=this.getCondition();
+		if (validate(condition)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * The validate method validates the condition.
+	 * @param condition
+	 * @return validity as true or false
+	 */
+	private boolean validate(String condition) {
+		if (condition=="valid") {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+}
+'''
+}
+
