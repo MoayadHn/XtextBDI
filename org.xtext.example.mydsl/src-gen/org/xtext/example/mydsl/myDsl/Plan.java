@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Plan#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.Plan#getPriorityValue <em>Priority Value</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Plan#getBody <em>Body</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Plan#getTrigger <em>Trigger</em>}</li>
  * </ul>
@@ -49,6 +50,32 @@ public interface Plan extends EObject
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Priority Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Priority Value</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Priority Value</em>' attribute.
+   * @see #setPriorityValue(int)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getPlan_PriorityValue()
+   * @model
+   * @generated
+   */
+  int getPriorityValue();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.Plan#getPriorityValue <em>Priority Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Priority Value</em>' attribute.
+   * @see #getPriorityValue()
+   * @generated
+   */
+  void setPriorityValue(int value);
 
   /**
    * Returns the value of the '<em><b>Body</b></em>' attribute.

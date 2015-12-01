@@ -3,15 +3,12 @@
 package org.xtext.example.mydsl.myDsl.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.xtext.example.mydsl.myDsl.Condition;
 import org.xtext.example.mydsl.myDsl.Goal;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 
@@ -24,6 +21,7 @@ import org.xtext.example.mydsl.myDsl.MyDslPackage;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.GoalImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.GoalImpl#getGoalplan <em>Goalplan</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.GoalImpl#getCondition <em>Condition</em>}</li>
  * </ul>
  *
@@ -52,14 +50,44 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+   * The default value of the '{@link #getGoalplan() <em>Goalplan</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGoalplan()
+   * @generated
+   * @ordered
+   */
+  protected static final String GOALPLAN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getGoalplan() <em>Goalplan</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGoalplan()
+   * @generated
+   * @ordered
+   */
+  protected String goalplan = GOALPLAN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getCondition() <em>Condition</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getCondition()
    * @generated
    * @ordered
    */
-  protected Condition condition;
+  protected static final String CONDITION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCondition() <em>Condition</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCondition()
+   * @generated
+   * @ordered
+   */
+  protected String condition = CONDITION_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -110,7 +138,30 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
-  public Condition getCondition()
+  public String getGoalplan()
+  {
+    return goalplan;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGoalplan(String newGoalplan)
+  {
+    String oldGoalplan = goalplan;
+    goalplan = newGoalplan;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.GOAL__GOALPLAN, oldGoalplan, goalplan));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getCondition()
   {
     return condition;
   }
@@ -120,53 +171,12 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetCondition(Condition newCondition, NotificationChain msgs)
+  public void setCondition(String newCondition)
   {
-    Condition oldCondition = condition;
+    String oldCondition = condition;
     condition = newCondition;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, MyDslPackage.GOAL__CONDITION, oldCondition, newCondition);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCondition(Condition newCondition)
-  {
-    if (newCondition != condition)
-    {
-      NotificationChain msgs = null;
-      if (condition != null)
-        msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.GOAL__CONDITION, null, msgs);
-      if (newCondition != null)
-        msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - MyDslPackage.GOAL__CONDITION, null, msgs);
-      msgs = basicSetCondition(newCondition, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.GOAL__CONDITION, newCondition, newCondition));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case MyDslPackage.GOAL__CONDITION:
-        return basicSetCondition(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.GOAL__CONDITION, oldCondition, condition));
   }
 
   /**
@@ -181,6 +191,8 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
     {
       case MyDslPackage.GOAL__NAME:
         return getName();
+      case MyDslPackage.GOAL__GOALPLAN:
+        return getGoalplan();
       case MyDslPackage.GOAL__CONDITION:
         return getCondition();
     }
@@ -200,8 +212,11 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
       case MyDslPackage.GOAL__NAME:
         setName((String)newValue);
         return;
+      case MyDslPackage.GOAL__GOALPLAN:
+        setGoalplan((String)newValue);
+        return;
       case MyDslPackage.GOAL__CONDITION:
-        setCondition((Condition)newValue);
+        setCondition((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -220,8 +235,11 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
       case MyDslPackage.GOAL__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case MyDslPackage.GOAL__GOALPLAN:
+        setGoalplan(GOALPLAN_EDEFAULT);
+        return;
       case MyDslPackage.GOAL__CONDITION:
-        setCondition((Condition)null);
+        setCondition(CONDITION_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -239,8 +257,10 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
     {
       case MyDslPackage.GOAL__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case MyDslPackage.GOAL__GOALPLAN:
+        return GOALPLAN_EDEFAULT == null ? goalplan != null : !GOALPLAN_EDEFAULT.equals(goalplan);
       case MyDslPackage.GOAL__CONDITION:
-        return condition != null;
+        return CONDITION_EDEFAULT == null ? condition != null : !CONDITION_EDEFAULT.equals(condition);
     }
     return super.eIsSet(featureID);
   }
@@ -258,6 +278,10 @@ public class GoalImpl extends MinimalEObjectImpl.Container implements Goal
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", Goalplan: ");
+    result.append(goalplan);
+    result.append(", Condition: ");
+    result.append(condition);
     result.append(')');
     return result.toString();
   }

@@ -17,10 +17,11 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getName <em>Name</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getImport <em>Import</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getEvent <em>Event</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getBeliefs <em>Beliefs</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getBelief <em>Belief</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getGoal <em>Goal</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.Agent#getPlan <em>Plan</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent()
@@ -72,20 +73,20 @@ public interface Agent extends EObject
   EList<Imports> getImport();
 
   /**
-   * Returns the value of the '<em><b>Events</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Event</b></em>' containment reference list.
    * The list contents are of type {@link org.xtext.example.mydsl.myDsl.Events}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Events</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Event</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Events</em>' containment reference list.
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Events()
+   * @return the value of the '<em>Event</em>' containment reference list.
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Event()
    * @model containment="true"
    * @generated
    */
-  EList<Events> getEvents();
+  EList<Events> getEvent();
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
@@ -104,35 +105,51 @@ public interface Agent extends EObject
   EList<Parameters> getParameters();
 
   /**
-   * Returns the value of the '<em><b>Beliefs</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Belief</b></em>' containment reference list.
    * The list contents are of type {@link org.xtext.example.mydsl.myDsl.BeliefSet}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Beliefs</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Belief</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Beliefs</em>' containment reference list.
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Beliefs()
+   * @return the value of the '<em>Belief</em>' containment reference list.
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Belief()
    * @model containment="true"
    * @generated
    */
-  EList<BeliefSet> getBeliefs();
+  EList<BeliefSet> getBelief();
 
   /**
-   * Returns the value of the '<em><b>Plans</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Goal</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.example.mydsl.myDsl.Goals}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Goal</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Goal</em>' containment reference list.
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Goal()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Goals> getGoal();
+
+  /**
+   * Returns the value of the '<em><b>Plan</b></em>' containment reference list.
    * The list contents are of type {@link org.xtext.example.mydsl.myDsl.Plans}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Plans</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Plan</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Plans</em>' containment reference list.
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Plans()
+   * @return the value of the '<em>Plan</em>' containment reference list.
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getAgent_Plan()
    * @model containment="true"
    * @generated
    */
-  EList<Plans> getPlans();
+  EList<Plans> getPlan();
 
 } // Agent

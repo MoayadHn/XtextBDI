@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.xtext.example.mydsl.myDsl.Agent;
 import org.xtext.example.mydsl.myDsl.BeliefSet;
 import org.xtext.example.mydsl.myDsl.Events;
+import org.xtext.example.mydsl.myDsl.Goals;
 import org.xtext.example.mydsl.myDsl.Imports;
 import org.xtext.example.mydsl.myDsl.MyDslPackage;
 import org.xtext.example.mydsl.myDsl.Parameters;
@@ -36,10 +37,11 @@ import org.xtext.example.mydsl.myDsl.Plans;
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getImport <em>Import</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getEvent <em>Event</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getBeliefs <em>Beliefs</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getPlans <em>Plans</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getBelief <em>Belief</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getGoal <em>Goal</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.AgentImpl#getPlan <em>Plan</em>}</li>
  * </ul>
  *
  * @generated
@@ -77,14 +79,14 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
   protected EList<Imports> import_;
 
   /**
-   * The cached value of the '{@link #getEvents() <em>Events</em>}' containment reference list.
+   * The cached value of the '{@link #getEvent() <em>Event</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEvents()
+   * @see #getEvent()
    * @generated
    * @ordered
    */
-  protected EList<Events> events;
+  protected EList<Events> event;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -97,24 +99,34 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
   protected EList<Parameters> parameters;
 
   /**
-   * The cached value of the '{@link #getBeliefs() <em>Beliefs</em>}' containment reference list.
+   * The cached value of the '{@link #getBelief() <em>Belief</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBeliefs()
+   * @see #getBelief()
    * @generated
    * @ordered
    */
-  protected EList<BeliefSet> beliefs;
+  protected EList<BeliefSet> belief;
 
   /**
-   * The cached value of the '{@link #getPlans() <em>Plans</em>}' containment reference list.
+   * The cached value of the '{@link #getGoal() <em>Goal</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPlans()
+   * @see #getGoal()
    * @generated
    * @ordered
    */
-  protected EList<Plans> plans;
+  protected EList<Goals> goal;
+
+  /**
+   * The cached value of the '{@link #getPlan() <em>Plan</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPlan()
+   * @generated
+   * @ordered
+   */
+  protected EList<Plans> plan;
 
   /**
    * <!-- begin-user-doc -->
@@ -179,13 +191,13 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Events> getEvents()
+  public EList<Events> getEvent()
   {
-    if (events == null)
+    if (event == null)
     {
-      events = new EObjectContainmentEList<Events>(Events.class, this, MyDslPackage.AGENT__EVENTS);
+      event = new EObjectContainmentEList<Events>(Events.class, this, MyDslPackage.AGENT__EVENT);
     }
-    return events;
+    return event;
   }
 
   /**
@@ -207,13 +219,13 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<BeliefSet> getBeliefs()
+  public EList<BeliefSet> getBelief()
   {
-    if (beliefs == null)
+    if (belief == null)
     {
-      beliefs = new EObjectContainmentEList<BeliefSet>(BeliefSet.class, this, MyDslPackage.AGENT__BELIEFS);
+      belief = new EObjectContainmentEList<BeliefSet>(BeliefSet.class, this, MyDslPackage.AGENT__BELIEF);
     }
-    return beliefs;
+    return belief;
   }
 
   /**
@@ -221,13 +233,27 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Plans> getPlans()
+  public EList<Goals> getGoal()
   {
-    if (plans == null)
+    if (goal == null)
     {
-      plans = new EObjectContainmentEList<Plans>(Plans.class, this, MyDslPackage.AGENT__PLANS);
+      goal = new EObjectContainmentEList<Goals>(Goals.class, this, MyDslPackage.AGENT__GOAL);
     }
-    return plans;
+    return goal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Plans> getPlan()
+  {
+    if (plan == null)
+    {
+      plan = new EObjectContainmentEList<Plans>(Plans.class, this, MyDslPackage.AGENT__PLAN);
+    }
+    return plan;
   }
 
   /**
@@ -242,14 +268,16 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
     {
       case MyDslPackage.AGENT__IMPORT:
         return ((InternalEList<?>)getImport()).basicRemove(otherEnd, msgs);
-      case MyDslPackage.AGENT__EVENTS:
-        return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
+      case MyDslPackage.AGENT__EVENT:
+        return ((InternalEList<?>)getEvent()).basicRemove(otherEnd, msgs);
       case MyDslPackage.AGENT__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case MyDslPackage.AGENT__BELIEFS:
-        return ((InternalEList<?>)getBeliefs()).basicRemove(otherEnd, msgs);
-      case MyDslPackage.AGENT__PLANS:
-        return ((InternalEList<?>)getPlans()).basicRemove(otherEnd, msgs);
+      case MyDslPackage.AGENT__BELIEF:
+        return ((InternalEList<?>)getBelief()).basicRemove(otherEnd, msgs);
+      case MyDslPackage.AGENT__GOAL:
+        return ((InternalEList<?>)getGoal()).basicRemove(otherEnd, msgs);
+      case MyDslPackage.AGENT__PLAN:
+        return ((InternalEList<?>)getPlan()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -268,14 +296,16 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
         return getName();
       case MyDslPackage.AGENT__IMPORT:
         return getImport();
-      case MyDslPackage.AGENT__EVENTS:
-        return getEvents();
+      case MyDslPackage.AGENT__EVENT:
+        return getEvent();
       case MyDslPackage.AGENT__PARAMETERS:
         return getParameters();
-      case MyDslPackage.AGENT__BELIEFS:
-        return getBeliefs();
-      case MyDslPackage.AGENT__PLANS:
-        return getPlans();
+      case MyDslPackage.AGENT__BELIEF:
+        return getBelief();
+      case MyDslPackage.AGENT__GOAL:
+        return getGoal();
+      case MyDslPackage.AGENT__PLAN:
+        return getPlan();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -298,21 +328,25 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
         getImport().clear();
         getImport().addAll((Collection<? extends Imports>)newValue);
         return;
-      case MyDslPackage.AGENT__EVENTS:
-        getEvents().clear();
-        getEvents().addAll((Collection<? extends Events>)newValue);
+      case MyDslPackage.AGENT__EVENT:
+        getEvent().clear();
+        getEvent().addAll((Collection<? extends Events>)newValue);
         return;
       case MyDslPackage.AGENT__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends Parameters>)newValue);
         return;
-      case MyDslPackage.AGENT__BELIEFS:
-        getBeliefs().clear();
-        getBeliefs().addAll((Collection<? extends BeliefSet>)newValue);
+      case MyDslPackage.AGENT__BELIEF:
+        getBelief().clear();
+        getBelief().addAll((Collection<? extends BeliefSet>)newValue);
         return;
-      case MyDslPackage.AGENT__PLANS:
-        getPlans().clear();
-        getPlans().addAll((Collection<? extends Plans>)newValue);
+      case MyDslPackage.AGENT__GOAL:
+        getGoal().clear();
+        getGoal().addAll((Collection<? extends Goals>)newValue);
+        return;
+      case MyDslPackage.AGENT__PLAN:
+        getPlan().clear();
+        getPlan().addAll((Collection<? extends Plans>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -334,17 +368,20 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
       case MyDslPackage.AGENT__IMPORT:
         getImport().clear();
         return;
-      case MyDslPackage.AGENT__EVENTS:
-        getEvents().clear();
+      case MyDslPackage.AGENT__EVENT:
+        getEvent().clear();
         return;
       case MyDslPackage.AGENT__PARAMETERS:
         getParameters().clear();
         return;
-      case MyDslPackage.AGENT__BELIEFS:
-        getBeliefs().clear();
+      case MyDslPackage.AGENT__BELIEF:
+        getBelief().clear();
         return;
-      case MyDslPackage.AGENT__PLANS:
-        getPlans().clear();
+      case MyDslPackage.AGENT__GOAL:
+        getGoal().clear();
+        return;
+      case MyDslPackage.AGENT__PLAN:
+        getPlan().clear();
         return;
     }
     super.eUnset(featureID);
@@ -364,14 +401,16 @@ public class AgentImpl extends MinimalEObjectImpl.Container implements Agent
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case MyDslPackage.AGENT__IMPORT:
         return import_ != null && !import_.isEmpty();
-      case MyDslPackage.AGENT__EVENTS:
-        return events != null && !events.isEmpty();
+      case MyDslPackage.AGENT__EVENT:
+        return event != null && !event.isEmpty();
       case MyDslPackage.AGENT__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
-      case MyDslPackage.AGENT__BELIEFS:
-        return beliefs != null && !beliefs.isEmpty();
-      case MyDslPackage.AGENT__PLANS:
-        return plans != null && !plans.isEmpty();
+      case MyDslPackage.AGENT__BELIEF:
+        return belief != null && !belief.isEmpty();
+      case MyDslPackage.AGENT__GOAL:
+        return goal != null && !goal.isEmpty();
+      case MyDslPackage.AGENT__PLAN:
+        return plan != null && !plan.isEmpty();
     }
     return super.eIsSet(featureID);
   }

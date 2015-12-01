@@ -47,13 +47,15 @@ public class MyDslSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Value:
+	 *     	'Value {'
 	 *     	Code
+	 *     	'}'
 	 *     ;
 	 */
 	protected String getValueToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "\"\"";
+		return "Value {\"\"}";
 	}
 	
 	@Override

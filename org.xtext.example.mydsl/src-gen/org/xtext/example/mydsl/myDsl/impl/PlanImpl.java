@@ -24,6 +24,7 @@ import org.xtext.example.mydsl.myDsl.Trigger;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.PlanImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.PlanImpl#getPriorityValue <em>Priority Value</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.PlanImpl#getBody <em>Body</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.PlanImpl#getTrigger <em>Trigger</em>}</li>
  * </ul>
@@ -51,6 +52,26 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getPriorityValue() <em>Priority Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPriorityValue()
+   * @generated
+   * @ordered
+   */
+  protected static final int PRIORITY_VALUE_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getPriorityValue() <em>Priority Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPriorityValue()
+   * @generated
+   * @ordered
+   */
+  protected int priorityValue = PRIORITY_VALUE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
@@ -124,6 +145,29 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
     name = newName;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.PLAN__NAME, oldName, name));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getPriorityValue()
+  {
+    return priorityValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPriorityValue(int newPriorityValue)
+  {
+    int oldPriorityValue = priorityValue;
+    priorityValue = newPriorityValue;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.PLAN__PRIORITY_VALUE, oldPriorityValue, priorityValue));
   }
 
   /**
@@ -225,6 +269,8 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
     {
       case MyDslPackage.PLAN__NAME:
         return getName();
+      case MyDslPackage.PLAN__PRIORITY_VALUE:
+        return getPriorityValue();
       case MyDslPackage.PLAN__BODY:
         return getBody();
       case MyDslPackage.PLAN__TRIGGER:
@@ -245,6 +291,9 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
     {
       case MyDslPackage.PLAN__NAME:
         setName((String)newValue);
+        return;
+      case MyDslPackage.PLAN__PRIORITY_VALUE:
+        setPriorityValue((Integer)newValue);
         return;
       case MyDslPackage.PLAN__BODY:
         setBody((String)newValue);
@@ -269,6 +318,9 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
       case MyDslPackage.PLAN__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case MyDslPackage.PLAN__PRIORITY_VALUE:
+        setPriorityValue(PRIORITY_VALUE_EDEFAULT);
+        return;
       case MyDslPackage.PLAN__BODY:
         setBody(BODY_EDEFAULT);
         return;
@@ -291,6 +343,8 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
     {
       case MyDslPackage.PLAN__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case MyDslPackage.PLAN__PRIORITY_VALUE:
+        return priorityValue != PRIORITY_VALUE_EDEFAULT;
       case MyDslPackage.PLAN__BODY:
         return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
       case MyDslPackage.PLAN__TRIGGER:
@@ -312,6 +366,8 @@ public class PlanImpl extends MinimalEObjectImpl.Container implements Plan
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", PriorityValue: ");
+    result.append(priorityValue);
     result.append(", Body: ");
     result.append(body);
     result.append(')');

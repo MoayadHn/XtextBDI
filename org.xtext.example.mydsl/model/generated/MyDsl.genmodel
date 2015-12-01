@@ -13,10 +13,11 @@
     <genClasses ecoreClass="MyDsl.ecore#//Agent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Agent/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Import"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Events"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Event"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Parameters"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Beliefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Plans"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Belief"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Goal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Agent/Plan"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Imports">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Imports/Imports"/>
@@ -26,8 +27,7 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Event">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Event/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Event/EventType"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Event/Parameter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Event/code"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Parameters">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Parameters/Parameters"/>
@@ -65,6 +65,7 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Plan">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Plan/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Plan/PriorityValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Plan/Body"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Plan/Trigger"/>
     </genClasses>
@@ -78,6 +79,8 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Belief">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Belief/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Belief/beliefGoal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Belief/beliefValidate"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Belief/Fact"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Fact">
@@ -91,7 +94,8 @@
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Goal">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Goal/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MyDsl.ecore#//Goal/Condition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Goal/Goalplan"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MyDsl.ecore#//Goal/Condition"/>
     </genClasses>
     <genClasses ecoreClass="MyDsl.ecore#//Achieve"/>
     <genClasses ecoreClass="MyDsl.ecore#//Query">

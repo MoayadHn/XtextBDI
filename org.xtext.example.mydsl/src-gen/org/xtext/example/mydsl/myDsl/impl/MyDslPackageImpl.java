@@ -369,7 +369,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAgent_Events()
+  public EReference getAgent_Event()
   {
     return (EReference)agentEClass.getEStructuralFeatures().get(2);
   }
@@ -389,7 +389,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAgent_Beliefs()
+  public EReference getAgent_Belief()
   {
     return (EReference)agentEClass.getEStructuralFeatures().get(4);
   }
@@ -399,9 +399,19 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAgent_Plans()
+  public EReference getAgent_Goal()
   {
     return (EReference)agentEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getAgent_Plan()
+  {
+    return (EReference)agentEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -469,19 +479,9 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEvent_EventType()
+  public EAttribute getEvent_Code()
   {
     return (EAttribute)eventEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEvent_Parameter()
-  {
-    return (EReference)eventEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -789,7 +789,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPlan_Body()
+  public EAttribute getPlan_PriorityValue()
   {
     return (EAttribute)planEClass.getEStructuralFeatures().get(1);
   }
@@ -799,9 +799,19 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getPlan_Body()
+  {
+    return (EAttribute)planEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getPlan_Trigger()
   {
-    return (EReference)planEClass.getEStructuralFeatures().get(2);
+    return (EReference)planEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -889,9 +899,29 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getBelief_BeliefGoal()
+  {
+    return (EAttribute)beliefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBelief_BeliefValidate()
+  {
+    return (EAttribute)beliefEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getBelief_Fact()
   {
-    return (EReference)beliefEClass.getEStructuralFeatures().get(1);
+    return (EReference)beliefEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -979,9 +1009,19 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getGoal_Condition()
+  public EAttribute getGoal_Goalplan()
   {
-    return (EReference)goalEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)goalEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getGoal_Condition()
+  {
+    return (EAttribute)goalEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1190,10 +1230,11 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     agentEClass = createEClass(AGENT);
     createEAttribute(agentEClass, AGENT__NAME);
     createEReference(agentEClass, AGENT__IMPORT);
-    createEReference(agentEClass, AGENT__EVENTS);
+    createEReference(agentEClass, AGENT__EVENT);
     createEReference(agentEClass, AGENT__PARAMETERS);
-    createEReference(agentEClass, AGENT__BELIEFS);
-    createEReference(agentEClass, AGENT__PLANS);
+    createEReference(agentEClass, AGENT__BELIEF);
+    createEReference(agentEClass, AGENT__GOAL);
+    createEReference(agentEClass, AGENT__PLAN);
 
     importsEClass = createEClass(IMPORTS);
     createEAttribute(importsEClass, IMPORTS__IMPORTS);
@@ -1203,8 +1244,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     eventEClass = createEClass(EVENT);
     createEAttribute(eventEClass, EVENT__NAME);
-    createEAttribute(eventEClass, EVENT__EVENT_TYPE);
-    createEReference(eventEClass, EVENT__PARAMETER);
+    createEAttribute(eventEClass, EVENT__CODE);
 
     parametersEClass = createEClass(PARAMETERS);
     createEReference(parametersEClass, PARAMETERS__PARAMETERS);
@@ -1244,6 +1284,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     planEClass = createEClass(PLAN);
     createEAttribute(planEClass, PLAN__NAME);
+    createEAttribute(planEClass, PLAN__PRIORITY_VALUE);
     createEAttribute(planEClass, PLAN__BODY);
     createEReference(planEClass, PLAN__TRIGGER);
 
@@ -1257,6 +1298,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     beliefEClass = createEClass(BELIEF);
     createEAttribute(beliefEClass, BELIEF__NAME);
+    createEAttribute(beliefEClass, BELIEF__BELIEF_GOAL);
+    createEAttribute(beliefEClass, BELIEF__BELIEF_VALIDATE);
     createEReference(beliefEClass, BELIEF__FACT);
 
     factEClass = createEClass(FACT);
@@ -1270,7 +1313,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     goalEClass = createEClass(GOAL);
     createEAttribute(goalEClass, GOAL__NAME);
-    createEReference(goalEClass, GOAL__CONDITION);
+    createEAttribute(goalEClass, GOAL__GOALPLAN);
+    createEAttribute(goalEClass, GOAL__CONDITION);
 
     achieveEClass = createEClass(ACHIEVE);
 
@@ -1345,10 +1389,11 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
     initEClass(agentEClass, Agent.class, "Agent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAgent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAgent_Import(), this.getImports(), null, "Import", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAgent_Events(), this.getEvents(), null, "Events", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAgent_Event(), this.getEvents(), null, "Event", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAgent_Parameters(), this.getParameters(), null, "Parameters", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAgent_Beliefs(), this.getBeliefSet(), null, "Beliefs", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAgent_Plans(), this.getPlans(), null, "Plans", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAgent_Belief(), this.getBeliefSet(), null, "Belief", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAgent_Goal(), this.getGoals(), null, "Goal", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAgent_Plan(), this.getPlans(), null, "Plan", null, 0, -1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importsEClass, Imports.class, "Imports", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImports_Imports(), ecorePackage.getEString(), "Imports", null, 0, -1, Imports.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1358,8 +1403,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEvent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEvent_EventType(), ecorePackage.getEString(), "EventType", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEvent_Parameter(), this.getParameter(), null, "Parameter", null, 0, -1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEvent_Code(), ecorePackage.getEString(), "code", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(parametersEClass, Parameters.class, "Parameters", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getParameters_Parameters(), this.getParameter(), null, "Parameters", null, 0, -1, Parameters.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1399,6 +1443,7 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     initEClass(planEClass, Plan.class, "Plan", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPlan_Name(), ecorePackage.getEString(), "name", null, 0, 1, Plan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPlan_PriorityValue(), ecorePackage.getEInt(), "PriorityValue", null, 0, 1, Plan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPlan_Body(), ecorePackage.getEString(), "Body", null, 0, 1, Plan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPlan_Trigger(), this.getTrigger(), null, "Trigger", null, 0, 1, Plan.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1412,6 +1457,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     initEClass(beliefEClass, Belief.class, "Belief", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBelief_Name(), ecorePackage.getEString(), "name", null, 0, 1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getBelief_BeliefGoal(), ecorePackage.getEString(), "beliefGoal", null, 0, 1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getBelief_BeliefValidate(), ecorePackage.getEString(), "beliefValidate", null, 0, 1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getBelief_Fact(), this.getFact(), null, "Fact", null, 0, -1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(factEClass, Fact.class, "Fact", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1425,7 +1472,8 @@ public class MyDslPackageImpl extends EPackageImpl implements MyDslPackage
 
     initEClass(goalEClass, Goal.class, "Goal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getGoal_Name(), ecorePackage.getEString(), "name", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getGoal_Condition(), this.getCondition(), null, "Condition", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getGoal_Goalplan(), ecorePackage.getEString(), "Goalplan", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getGoal_Condition(), ecorePackage.getEString(), "Condition", null, 0, 1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(achieveEClass, Achieve.class, "Achieve", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

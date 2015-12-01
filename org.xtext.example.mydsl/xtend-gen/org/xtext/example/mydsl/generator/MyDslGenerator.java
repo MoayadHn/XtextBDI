@@ -3,9 +3,29 @@
  */
 package org.xtext.example.mydsl.generator;
 
+import com.google.common.collect.Iterables;
+import com.google.inject.Inject;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.IteratorExtensions;
+import org.xtext.example.mydsl.myDsl.Agent;
+import org.xtext.example.mydsl.myDsl.Belief;
+import org.xtext.example.mydsl.myDsl.BeliefSet;
+import org.xtext.example.mydsl.myDsl.Event;
+import org.xtext.example.mydsl.myDsl.Events;
+import org.xtext.example.mydsl.myDsl.Fact;
+import org.xtext.example.mydsl.myDsl.Goal;
+import org.xtext.example.mydsl.myDsl.Goals;
+import org.xtext.example.mydsl.myDsl.Plan;
+import org.xtext.example.mydsl.myDsl.Plans;
+import org.xtext.example.mydsl.myDsl.Trigger;
 
 /**
  * Generates code from your model files on save.
@@ -13,8 +33,126 @@ import org.eclipse.xtext.generator.IGenerator;
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 @SuppressWarnings("all")
-public class MyDslGenerator implements IGenerator {
+public abstract class MyDslGenerator implements IGenerator {
+  @Inject
+  @Extension
+  private IQualifiedNameProvider _iQualifiedNameProvider;
+  
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
+    TreeIterator<EObject> _allContents = resource.getAllContents();
+    Iterable<EObject> _iterable = IteratorExtensions.<EObject>toIterable(_allContents);
+    Iterable<Agent> _filter = Iterables.<Agent>filter(_iterable, Agent.class);
+    for (final Agent e : _filter) {
+      String _name = e.getName();
+      String _plus = (_name + ".xml");
+      CharSequence _compileAgent = this.compileAgent(e);
+      fsa.generateFile(_plus, _compileAgent);
+    }
+  }
+  
+  public CharSequence compileAgent(final Agent e) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<Agent>");
+    _builder.newLine();
+    {
+      EList<BeliefSet> _belief = e.getBelief();
+      for(final BeliefSet b : _belief) {
+        {
+          EList<Belief> _beliefSet = b.getBeliefSet();
+          for(final Belief bs : _beliefSet) {
+            _builder.append("      ");
+            _builder.append("<belief name=\'");
+            String _name = bs.getName();
+            _builder.append(_name, "      ");
+            _builder.append("\' beliefGoal=\'");
+            String _beliefGoal = bs.getBeliefGoal();
+            _builder.append(_beliefGoal, "      ");
+            _builder.append("\' beliefValidate=\'");
+            String _beliefValidate = bs.getBeliefValidate();
+            _builder.append(_beliefValidate, "      ");
+            _builder.append("\' fact=\'");
+            EList<Fact> _fact = bs.getFact();
+            _builder.append(_fact, "      ");
+            _builder.append("\'/>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    {
+      EList<Plans> _plan = e.getPlan();
+      for(final Plans plans : _plan) {
+        {
+          EList<Plan> _plans = plans.getPlans();
+          for(final Plan plan : _plans) {
+            _builder.append("      ");
+            _builder.append("<plan name=\'");
+            String _name_1 = plan.getName();
+            _builder.append(_name_1, "      ");
+            _builder.append("\' priorityValue=");
+            int _priorityValue = plan.getPriorityValue();
+            _builder.append(_priorityValue, "      ");
+            _builder.append(" planEvent=\'");
+            Trigger _trigger = plan.getTrigger();
+            _builder.append(_trigger, "      ");
+            _builder.append("\' code=\'");
+            String _body = plan.getBody();
+            _builder.append(_body, "      ");
+            _builder.append("\'/>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    {
+      EList<Goals> _goal = e.getGoal();
+      for(final Goals goals : _goal) {
+        {
+          EList<Goal> _goals = goals.getGoals();
+          for(final Goal goal : _goals) {
+            _builder.append("       ");
+            _builder.append("<goal name=\'");
+            String _name_2 = goal.getName();
+            _builder.append(_name_2, "       ");
+            _builder.append("\' goalType=\'");
+            Class<? extends Goal> _class = goal.getClass();
+            String _simpleName = _class.getSimpleName();
+            _builder.append(_simpleName, "       ");
+            _builder.append("\' goalPlan=\'");
+            String _goalplan = goal.getGoalplan();
+            _builder.append(_goalplan, "       ");
+            _builder.append("\' condition=\'");
+            String _condition = goal.getCondition();
+            _builder.append(_condition, "       ");
+            _builder.append("\'/>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    {
+      EList<Events> _event = e.getEvent();
+      for(final Events events : _event) {
+        {
+          EList<Event> _events = events.getEvents();
+          for(final Event event : _events) {
+            _builder.append("       ");
+            _builder.append("<event name=\'");
+            String _name_3 = event.getName();
+            _builder.append(_name_3, "       ");
+            _builder.append("\' code =\'");
+            String _code = event.getCode();
+            _builder.append(_code, "       ");
+            _builder.append("\'/>");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.newLine();
+    _builder.append("</Agent>");
+    _builder.newLine();
+    return _builder;
   }
 }

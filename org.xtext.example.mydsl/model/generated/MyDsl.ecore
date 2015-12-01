@@ -9,14 +9,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Import" upperBound="-1"
         eType="#//Imports" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Events" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Event" upperBound="-1"
         eType="#//Events" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Parameters" upperBound="-1"
         eType="#//Parameters" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Beliefs" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Belief" upperBound="-1"
         eType="#//BeliefSet" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Plans" upperBound="-1"
-        eType="#//Plans" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Goal" upperBound="-1" eType="#//Goals"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Plan" upperBound="-1" eType="#//Plans"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Imports">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Imports" unique="false"
@@ -28,9 +30,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Event">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="EventType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Parameter" upperBound="-1"
-        eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameters">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Parameters" upperBound="-1"
@@ -74,6 +74,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Plan">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="PriorityValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Body" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Trigger" eType="#//Trigger"
         containment="true"/>
@@ -89,6 +90,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Belief">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="beliefGoal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="beliefValidate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Fact" upperBound="-1" eType="#//Fact"
         containment="true"/>
   </eClassifiers>
@@ -106,8 +109,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Goal">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Condition" eType="#//Condition"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Goalplan" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Achieve" eSuperTypes="#//Goal"/>
   <eClassifiers xsi:type="ecore:EClass" name="Query" eSuperTypes="#//Goal">

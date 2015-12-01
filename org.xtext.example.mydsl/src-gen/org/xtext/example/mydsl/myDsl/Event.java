@@ -2,8 +2,6 @@
  */
 package org.xtext.example.mydsl.myDsl;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -16,8 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.Event#getName <em>Name</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.Event#getEventType <em>Event Type</em>}</li>
- *   <li>{@link org.xtext.example.mydsl.myDsl.Event#getParameter <em>Parameter</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.Event#getCode <em>Code</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getEvent()
@@ -53,45 +50,29 @@ public interface Event extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Event Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Code</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Event Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Code</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Event Type</em>' attribute.
-   * @see #setEventType(String)
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getEvent_EventType()
+   * @return the value of the '<em>Code</em>' attribute.
+   * @see #setCode(String)
+   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getEvent_Code()
    * @model
    * @generated
    */
-  String getEventType();
+  String getCode();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.Event#getEventType <em>Event Type</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.example.mydsl.myDsl.Event#getCode <em>Code</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Event Type</em>' attribute.
-   * @see #getEventType()
+   * @param value the new value of the '<em>Code</em>' attribute.
+   * @see #getCode()
    * @generated
    */
-  void setEventType(String value);
-
-  /**
-   * Returns the value of the '<em><b>Parameter</b></em>' containment reference list.
-   * The list contents are of type {@link org.xtext.example.mydsl.myDsl.Parameter}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameter</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameter</em>' containment reference list.
-   * @see org.xtext.example.mydsl.myDsl.MyDslPackage#getEvent_Parameter()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Parameter> getParameter();
+  void setCode(String value);
 
 } // Event

@@ -13,11 +13,12 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 	
 	Agent:
 			'Agent' name=ID '{' 
-			(Import += Imports)*
-			(Events += Events)*
+			(Import+=Imports)*
+			(Event+=Events)*
 			(Parameters += Parameters)*
-			(Beliefs += BeliefSet)*
-			(Plans += Plans)*
+			(Belief+=BeliefSet)*
+			(Goal+=Goals)*
+			(Plan+=Plans)*
 		'}'
 	;
 	
@@ -44,9 +45,10 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 	;
 			
 	Event:
-    	name=ID '{' 
-    	EventType=STRING
-    	(Parameter+=Parameter)*
+    	'Event' name=ID '{' 
+    	//EventType=STRING
+    	//(Parameter+=Parameter)*
+    	code = Code
     	'}'
     ;
     
@@ -55,17 +57,18 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
     	(Parameters+=Parameter)+
     	'}'
     ;
-    
     Parameter:
+    	'Parameter {' 
     	name=ID'='Value
+    	'}'
     ;
-    
     Value:
+    	'Value {'
     	Code
+    	'}'
     ;
-    
     Code:
-    	STRING | ID | BOOLEAN | NUMBER | NETWORK 
+    	STRING | ID | BOOLEAN | Number | NETWORK 
     ;
     
     	Operator:
@@ -105,7 +108,7 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 	Factor (({Multiply.left=current} '*'| {Division.left=current}'/') right=Factor)*
 	;
 	Factor:
-	number=NUMBER|variable=QualifiedName|string=STRING |boolean=BOOLEAN|('(' expression=Expression ')')
+	number=Number|variable=QualifiedName|string=STRING |boolean=BOOLEAN|('(' expression=Expression ')')
 	;
     
    terminal NETWORK returns ecore::EString:
@@ -116,7 +119,7 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 	('0'..'9')|(('1'..'9')('0'..'9'))|('1'('0'..'9')('0'..'9'))| ('2'('0'..'5')('0'..'5'))
 	;
     
-    NUMBER:
+    Number:
 	INT
 	;
 
@@ -136,14 +139,17 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
     ;
     
      Plan:
-    	'Plan' name=ID'{'
+    	'Plan {' name=ID
+    	PriorityValue=INT
     	Body=Body
     	Trigger=Trigger
     	'}'
     ;
     
     Body:
+    	'Body {'
     	STRING
+    	'}'
     ;
     
     Trigger:
@@ -153,13 +159,15 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
     ;
     
  	BeliefSet:
-        'BeliefSet' name=ID'{'
+        'BeliefSet {' name=ID
         (BeliefSet+=Belief)+
         '}'
     ;
     
     Belief:
-      'Belief' name=ID'{'
+      'Belief {' name=ID
+        beliefGoal=STRING
+        beliefValidate=STRING
        (Fact+=Fact)*
        '}'
     ;
@@ -190,27 +198,31 @@ import "http://www.eclipse.org/xtext/xbase/Xbase" as xbase
 	;
 	
 	Achieve:
-		'Achieve' name=ID'{'
-        Condition=Condition
+		'Achieve {' name=ID
+		Goalplan=STRING
+        Condition=STRING
        '}'
 	;
 	
 	Query:
-		'Query' name=ID'{'
-        Condition=Condition
+		'Query {' name=ID
+		Goalplan=STRING
+        Condition=STRING
         Result=Result
         '}'
 	;
 	
 	Maintain:
-		'Maintain' name=ID'{'
-        Condition=Condition
+		'Maintain {' name=ID
+		Goalplan=STRING
+        Condition=STRING
 		'}'
 	;
 	
 	Perform:
-		'Perform' name=ID'{'
-        Condition=Condition
+		'Perform {' name=ID
+		Goalplan=STRING
+        Condition=STRING
         '}'
 	;
 	

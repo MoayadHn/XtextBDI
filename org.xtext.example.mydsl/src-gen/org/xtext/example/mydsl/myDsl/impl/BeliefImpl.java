@@ -31,6 +31,8 @@ import org.xtext.example.mydsl.myDsl.MyDslPackage;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.BeliefImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.BeliefImpl#getBeliefGoal <em>Belief Goal</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.myDsl.impl.BeliefImpl#getBeliefValidate <em>Belief Validate</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.myDsl.impl.BeliefImpl#getFact <em>Fact</em>}</li>
  * </ul>
  *
@@ -57,6 +59,46 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
    * @ordered
    */
   protected String name = NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getBeliefGoal() <em>Belief Goal</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBeliefGoal()
+   * @generated
+   * @ordered
+   */
+  protected static final String BELIEF_GOAL_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getBeliefGoal() <em>Belief Goal</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBeliefGoal()
+   * @generated
+   * @ordered
+   */
+  protected String beliefGoal = BELIEF_GOAL_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getBeliefValidate() <em>Belief Validate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBeliefValidate()
+   * @generated
+   * @ordered
+   */
+  protected static final String BELIEF_VALIDATE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getBeliefValidate() <em>Belief Validate</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBeliefValidate()
+   * @generated
+   * @ordered
+   */
+  protected String beliefValidate = BELIEF_VALIDATE_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getFact() <em>Fact</em>}' containment reference list.
@@ -117,6 +159,52 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getBeliefGoal()
+  {
+    return beliefGoal;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setBeliefGoal(String newBeliefGoal)
+  {
+    String oldBeliefGoal = beliefGoal;
+    beliefGoal = newBeliefGoal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.BELIEF__BELIEF_GOAL, oldBeliefGoal, beliefGoal));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getBeliefValidate()
+  {
+    return beliefValidate;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setBeliefValidate(String newBeliefValidate)
+  {
+    String oldBeliefValidate = beliefValidate;
+    beliefValidate = newBeliefValidate;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, MyDslPackage.BELIEF__BELIEF_VALIDATE, oldBeliefValidate, beliefValidate));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Fact> getFact()
   {
     if (fact == null)
@@ -154,6 +242,10 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
     {
       case MyDslPackage.BELIEF__NAME:
         return getName();
+      case MyDslPackage.BELIEF__BELIEF_GOAL:
+        return getBeliefGoal();
+      case MyDslPackage.BELIEF__BELIEF_VALIDATE:
+        return getBeliefValidate();
       case MyDslPackage.BELIEF__FACT:
         return getFact();
     }
@@ -173,6 +265,12 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
     {
       case MyDslPackage.BELIEF__NAME:
         setName((String)newValue);
+        return;
+      case MyDslPackage.BELIEF__BELIEF_GOAL:
+        setBeliefGoal((String)newValue);
+        return;
+      case MyDslPackage.BELIEF__BELIEF_VALIDATE:
+        setBeliefValidate((String)newValue);
         return;
       case MyDslPackage.BELIEF__FACT:
         getFact().clear();
@@ -195,6 +293,12 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
       case MyDslPackage.BELIEF__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case MyDslPackage.BELIEF__BELIEF_GOAL:
+        setBeliefGoal(BELIEF_GOAL_EDEFAULT);
+        return;
+      case MyDslPackage.BELIEF__BELIEF_VALIDATE:
+        setBeliefValidate(BELIEF_VALIDATE_EDEFAULT);
+        return;
       case MyDslPackage.BELIEF__FACT:
         getFact().clear();
         return;
@@ -214,6 +318,10 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
     {
       case MyDslPackage.BELIEF__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case MyDslPackage.BELIEF__BELIEF_GOAL:
+        return BELIEF_GOAL_EDEFAULT == null ? beliefGoal != null : !BELIEF_GOAL_EDEFAULT.equals(beliefGoal);
+      case MyDslPackage.BELIEF__BELIEF_VALIDATE:
+        return BELIEF_VALIDATE_EDEFAULT == null ? beliefValidate != null : !BELIEF_VALIDATE_EDEFAULT.equals(beliefValidate);
       case MyDslPackage.BELIEF__FACT:
         return fact != null && !fact.isEmpty();
     }
@@ -233,6 +341,10 @@ public class BeliefImpl extends MinimalEObjectImpl.Container implements Belief
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", beliefGoal: ");
+    result.append(beliefGoal);
+    result.append(", beliefValidate: ");
+    result.append(beliefValidate);
     result.append(')');
     return result.toString();
   }
